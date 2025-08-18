@@ -206,7 +206,7 @@ The backend uses a normalized relational database design for all core entities (
 - Over-normalization can make the schema harder to understand
 
 **Summary:**
-Normalization is ideal for transactional systems like nWeave, where data integrity and maintainability are critical. For reporting or analytics, selective denormalization may be considered for performance.
+Normalization is ideal for transactional systems, where data integrity and maintainability are critical. For reporting or analytics, selective denormalization may be considered for performance.
 
 ---
 
