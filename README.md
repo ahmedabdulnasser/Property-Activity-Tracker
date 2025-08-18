@@ -16,14 +16,6 @@ This is the server-side backend for the Property Activity Tracker Platform. It p
 - WebSocket (Socket.IO)
 - csv-parse (for seeding)
 
-**Frontend:**
-
-- React (Vite)
-- Material UI
-- React Router
-- Leaflet (maps)
-- Socket.IO Client
-
 ---
 
 ## Folder Structure
