@@ -206,8 +206,29 @@ The backend uses a normalized relational database design for all core entities (
 - Over-normalization can make the schema harder to understand
 
 **Summary:**
-Normalization is ideal for transactional systems, where data integrity and maintainability are critical. For reporting or analytics, selective denormalization may be considered for performance.
+Normalization is ideal for transactional systems like nWeave, where data integrity and maintainability are critical. For reporting or analytics, selective denormalization may be considered for performance.
 
+## Notification & Replay Logic
+
+### Notifications
+- Notifications are stored as entities with a message, type (info, warning, etc.), status (read/unread), and user association.
+- The backend provides endpoints to list, mark as read, and delete notifications for each user.
+- Notifications are generated for key events (e.g., new activity, missed activity, system alerts) and delivered in real-time via WebSocket for instant feedback.
+- The design ensures users are always informed about important updates and can manage their notification status.
+
+### Replay Logic
+- The activity replay feature allows users and admins to view historical activities over a selected period (e.g., today, last week).
+- Replay endpoints aggregate and return activities based on time filters, supporting analytics and review of past events.
+- This logic is used for dashboards, heatmaps, and leaderboards, enabling insights into user/property engagement and performance.
+- Replay is optimized for both API and real-time delivery, supporting both batch and live review scenarios.
+
+## Development & Running
+
+- **Backend:**
+  ```
+  npm install
+  npm run start:dev
+  ```
 ---
 
 ## Seeding Properties
@@ -223,13 +244,4 @@ Normalization is ideal for transactional systems, where data integrity and maint
    - Deletes all properties and seeds new ones from your CSV file.
    - Uses the first part of the address as the property name and supports latitude/longitude if present.
 
----
-
-## Development & Running
-
-- **Backend:**
-  ```
-  npm install
-  npm run start:dev
-  ```
 ---
