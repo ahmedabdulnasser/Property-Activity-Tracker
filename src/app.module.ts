@@ -4,14 +4,14 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { EventEmitterModule } from "@nestjs/event-emitter";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { AuthModule } from "./auth/auth.module";
-import { UserModule } from "./user/user.module";
-import { SalesRepModule } from "./sales-rep/sales-rep.module";
-import { PropertyModule } from "./property/property.module";
-import { ActivityTypeModule } from "./activity-type/activity-type.module";
-import { ActivityModule } from "./activity/activity.module";
-import { WebsocketModule } from "./websocket/websocket.module";
-import { NotificationsModule } from "./notifications/notifications.module";
+import { AuthModule } from "./modules/auth/auth.module";
+import { UserModule } from "./modules/user/user.module";
+import { SalesRepModule } from "./modules/sales-rep/sales-rep.module";
+import { PropertyModule } from "./modules/property/property.module";
+import { ActivityTypeModule } from "./modules/activity-type/activity-type.module";
+import { ActivityModule } from "./modules/activity/activity.module";
+import { WebsocketModule } from "./modules/websocket/websocket.module";
+import { NotificationsModule } from "./modules/notifications/notifications.module";
 
 @Module({
   imports: [
