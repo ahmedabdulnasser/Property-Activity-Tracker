@@ -54,12 +54,54 @@ server/
 [Notification]
 ```
 
-- **User**: Can have many activities, notifications
-- **Property**: Can have many activities
-- **Activity**: Linked to User, Property, ActivityType, SalesRep
-- **SalesRep**: Can have many activities
-- **Notification**: Linked to User
-- **ActivityType**: Defines type of activity
+<img width="1584" height="638" alt="image" src="https://github.com/user-attachments/assets/c619e419-e9bd-4965-87dc-c062cc583d93" />
+
+
+### User
+- id: string (UUID)
+- name: string
+- email: string
+- password: string (hashed)
+- isOnline: boolean
+- last_seen_at: Date
+
+
+### SalesRep
+- id: string (UUID)
+- score: number (accumulated weighted score)
+- userId: string (relation to User)
+
+### Property
+- id: string (UUID)
+- propertyName: string
+- address: string
+- latitude: number
+- longitude: number
+
+### Activity
+- id: string (UUID)
+- salesRepId: string (relation to SalesRep)
+- propertyId: string (relation to Property)
+- activityTypeId: number (relation to activityType)
+- timestamp: Date
+- note: string (optional)
+
+
+### ActivityType
+- id: string (UUID)
+- name: string
+- weight: number
+- description: string
+
+
+### Notification
+- id: string (UUID)
+- message: string
+- type: string (info, warning, etc.)
+- status: string (read/unread)
+- userId: string (relation to User)
+- timestamp: Date
+
 
 ---
 
