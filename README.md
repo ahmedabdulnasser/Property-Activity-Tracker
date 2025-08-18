@@ -240,11 +240,4 @@ Normalization is ideal for transactional systems like nWeave, where data integri
   npm install
   npm run start:dev
   ```
-- **Frontend:**
-  ```
-  cd client
-  npm install
-  npm run dev
-  ```
-
 ---
