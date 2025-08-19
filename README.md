@@ -54,16 +54,7 @@ server/
 [Notification]
 ```
 
-- **User**: Can have many activities, notifications
-- **Property**: Can have many activities
-- **Activity**: Linked to User, Property, ActivityType, SalesRep
-- **SalesRep**: Can have many activities
-- **Notification**: Linked to User
-- **ActivityType**: Defines type of activity
-
----
-
-## ERD Entities
+<img width="1584" height="638" alt="image" src="https://github.com/user-attachments/assets/c619e419-e9bd-4965-87dc-c062cc583d93" />
 
 ### User
 
@@ -71,13 +62,12 @@ server/
 - name: string
 - email: string
 - password: string (hashed)
-- ...other profile fields
+- isOnline: boolean
+- last_seen_at: Date
 
 ### SalesRep
 
 - id: string (UUID)
-- name: string
-- isOnline: boolean
 - score: number (accumulated weighted score)
 - userId: string (relation to User)
 
@@ -94,12 +84,16 @@ server/
 - id: string (UUID)
 - salesRepId: string (relation to SalesRep)
 - propertyId: string (relation to Property)
-- activityType: string (visit, call, inspection, follow-up, note)
+- activityTypeId: number (relation to activityType)
 - timestamp: Date
-- latitude: number
-- longitude: number
 - note: string (optional)
-- weight: number (importance score)
+
+### ActivityType
+
+- id: string (UUID)
+- name: string
+- weight: number
+- description: string
 
 ### Notification
 
@@ -109,12 +103,6 @@ server/
 - status: string (read/unread)
 - userId: string (relation to User)
 - timestamp: Date
-
-### ActivityType
-
-- id: string (UUID)
-- name: string
-- weight: number
 
 ---
 
@@ -263,23 +251,6 @@ The backend uses a normalized relational database design for all core entities (
 **Summary:**
 Normalization is ideal for transactional systems like nWeave, where data integrity and maintainability are critical. For reporting or analytics, selective denormalization may be considered for performance.
 
----
-
-## Seeding Properties
-
-1. Install dependencies:
-   ```
-   npm install csv-parse
-   ```
-2. Run the seed script:
-   ```
-   npx ts-node src/database/seed-properties.ts
-   ```
-   - Deletes all properties and seeds new ones from your CSV file.
-   - Uses the first part of the address as the property name and supports latitude/longitude if present.
-
----
-
 ## Notification & Replay Logic
 
 ### Notifications
@@ -303,5 +274,20 @@ Normalization is ideal for transactional systems like nWeave, where data integri
   npm install
   npm run start:dev
   ```
+
+---
+
+## Seeding Properties
+
+1. Install dependencies:
+   ```
+   npm install csv-parse
+   ```
+2. Run the seed script:
+   ```
+   npx ts-node src/database/seed-properties.ts
+   ```
+   - Deletes all properties and seeds new ones from your CSV file.
+   - Uses the first part of the address as the property name and supports latitude/longitude if present.
 
 ---
