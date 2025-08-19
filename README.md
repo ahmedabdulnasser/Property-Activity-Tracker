@@ -16,14 +16,6 @@ This is the server-side backend for the Property Activity Tracker Platform. It p
 - WebSocket (Socket.IO)
 - csv-parse (for seeding)
 
-**Frontend:**
-
-- React (Vite)
-- Material UI
-- React Router
-- Leaflet (maps)
-- Socket.IO Client
-
 ---
 
 ## Folder Structure
@@ -68,6 +60,61 @@ server/
 - **SalesRep**: Can have many activities
 - **Notification**: Linked to User
 - **ActivityType**: Defines type of activity
+
+---
+
+## ERD Entities
+
+### User
+
+- id: string (UUID)
+- name: string
+- email: string
+- password: string (hashed)
+- ...other profile fields
+
+### SalesRep
+
+- id: string (UUID)
+- name: string
+- isOnline: boolean
+- score: number (accumulated weighted score)
+- userId: string (relation to User)
+
+### Property
+
+- id: string (UUID)
+- propertyName: string
+- address: string
+- latitude: number
+- longitude: number
+
+### Activity
+
+- id: string (UUID)
+- salesRepId: string (relation to SalesRep)
+- propertyId: string (relation to Property)
+- activityType: string (visit, call, inspection, follow-up, note)
+- timestamp: Date
+- latitude: number
+- longitude: number
+- note: string (optional)
+- weight: number (importance score)
+
+### Notification
+
+- id: string (UUID)
+- message: string
+- type: string (info, warning, etc.)
+- status: string (read/unread)
+- userId: string (relation to User)
+- timestamp: Date
+
+### ActivityType
+
+- id: string (UUID)
+- name: string
+- weight: number
 
 ---
 
@@ -233,6 +280,22 @@ Normalization is ideal for transactional systems like nWeave, where data integri
 
 ---
 
+## Notification & Replay Logic
+
+### Notifications
+
+- Notifications are stored as entities with a message, type (info, warning, etc.), status (read/unread), and user association.
+- The backend provides endpoints to list, mark as read, and delete notifications for each user.
+- Notifications are generated for key events (e.g., new activity, missed activity, system alerts) and delivered in real-time via WebSocket for instant feedback.
+- The design ensures users are always informed about important updates and can manage their notification status.
+
+### Replay Logic
+
+- The activity replay feature allows users and admins to view historical activities over a selected period (e.g., today, last week).
+- Replay endpoints aggregate and return activities based on time filters, supporting analytics and review of past events.
+- This logic is used for dashboards, heatmaps, and leaderboards, enabling insights into user/property engagement and performance.
+- Replay is optimized for both API and real-time delivery, supporting both batch and live review scenarios.
+
 ## Development & Running
 
 - **Backend:**
@@ -240,4 +303,5 @@ Normalization is ideal for transactional systems like nWeave, where data integri
   npm install
   npm run start:dev
   ```
+
 ---
